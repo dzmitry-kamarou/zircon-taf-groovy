@@ -40,6 +40,14 @@ task regression(type: Test) {
     }
 }
 
+task api(type: Test) {
+    systemProperty 'browser', "${browser}"
+    systemProperty 'env', "${env}"
+    useJUnitPlatform {
+        includeTags 'api'
+    }
+}
+
 task smoke(type: Test) {
     systemProperty 'browser', "${browser}"
     systemProperty 'env', "${env}"
