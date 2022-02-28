@@ -24,9 +24,23 @@ dependencies {
 }
 
 test {
-    systemProperty "browser", "chrome"
-    systemProperty "env", "qa"
-    environment "chromedriver", "C:\\Users\\dzmit\\browserdrivers\\chromedriver.exe"
-    environment "pd", "mhzmdd2xko17"
+    systemProperty 'browser', "${browser}"
+    systemProperty 'env', "${env}"
     useJUnitPlatform()
+}
+
+task regression(type: Test) {
+    systemProperty 'browser', "${browser}"
+    systemProperty 'env', "${env}"
+    useJUnitPlatform {
+        includeTags 'regression'
+    }
+}
+
+task smoke(type: Test) {
+    systemProperty 'browser', "${browser}"
+    systemProperty 'env', "${env}"
+    useJUnitPlatform {
+        includeTags 'smoke'
+    }
 }
