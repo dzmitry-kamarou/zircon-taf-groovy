@@ -7,4 +7,5 @@ class Account {
     String email
     String password
     Role role
+    String token
 }

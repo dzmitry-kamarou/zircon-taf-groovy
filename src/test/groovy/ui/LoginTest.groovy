@@ -1,3 +1,5 @@
+package ui
+
 import app.ui.Browser
 import app.ui.flow.DashboardPageFlow
 import app.ui.flow.WelcomePageFlow
@@ -9,7 +11,7 @@ import org.junit.jupiter.api.Test
 
 import static org.junit.jupiter.api.Assertions.assertEquals
 
-class BrowserTest {
+class LoginTest {
 
     @BeforeEach
     void setUp() {

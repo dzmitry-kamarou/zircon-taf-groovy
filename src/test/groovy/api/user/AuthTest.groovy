@@ -1,0 +1,25 @@
+package api.user
+
+import app.api.flow.UserFlow
+import business.account.AccountFactory
+import org.junit.jupiter.api.Tag
+import org.junit.jupiter.api.Test
+import static org.hamcrest.text.MatchesPattern.matchesPattern
+
+import static org.hamcrest.MatcherAssert.assertThat
+
+class AuthTest {
+
+    @Tag('api')
+    @Tag('regression')
+    @Test
+    void loggedInUserRetrievesToken() {
+        def account = AccountFactory.registeredUser()
+        def userFlow = new UserFlow()
+        userFlow.loginAccount(account)
+        def token = userFlow.authAccount(account)
+        def reason = "Token generated for logged in '${account.getEmail()}' account"
+        def jwtPattern = '[A-Za-z0-9-_=]+\\.[A-Za-z0-9-_=]+\\.?[A-Za-z0-9-_.+/=]*'
+        assertThat(reason, token, matchesPattern(jwtPattern))
+    }
+}
