@@ -44,6 +44,19 @@ class LoginTest {
         assertThat(reason, text, is('Wrong password'))
     }
 
+    @Test
+    @Tag('C3')
+    @Tag('smoke')
+    @Tag('regression')
+    void unregisteredUserCantLogin() {
+        def account = AccountFactory.randomAccount()
+        new WelcomePageFlow().login().login(account)
+        def text = Browser.getAlertText()
+        Browser.acceptAlert()
+        def reason = 'Unregistered account has not logged in'
+        assertThat(reason, text, is('The user was not found'))
+    }
+
     @AfterEach
     void tearDown() {
         Browser.down()
