@@ -22,7 +22,7 @@ class AuthTest {
         def token = userFlow.authAccount account
         def reason = "Token generated for logged in '${account.getEmail()}' account"
         def jwtPattern = '[A-Za-z0-9-_=]+\\.[A-Za-z0-9-_=]+\\.?[A-Za-z0-9-_.+/=]*'
-        assertThat(reason, token, matchesPattern(jwtPattern))
+        assertThat reason, token, matchesPattern(jwtPattern)
     }
 
     @Tag('api')
@@ -32,6 +32,6 @@ class AuthTest {
         def account = AccountFactory.registeredUser()
         def message = new UserFlow().authAccount account
         def reason = "Token not generated for not logged in '${account.getEmail()}' account"
-        assertThat(reason, message, is('Not authorized'))
+        assertThat reason, message, is('Not authorized')
     }
 }

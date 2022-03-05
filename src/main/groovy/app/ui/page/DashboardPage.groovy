@@ -8,6 +8,10 @@ class DashboardPage extends BasePage {
     private static final def EXIT_BUTTON_XPATH = '//button[@id=\'exit\']'
 
     boolean isExitButtonVisible() {
-        return Browser.getDriver().findElement(By.xpath(EXIT_BUTTON_XPATH)).isDisplayed()
+        Browser.getDriver().findElement(By.xpath(EXIT_BUTTON_XPATH)).isDisplayed()
+    }
+
+    void clickExitButton() {
+        Browser.getDriver().findElement(By.xpath(EXIT_BUTTON_XPATH)).click()
     }
 }

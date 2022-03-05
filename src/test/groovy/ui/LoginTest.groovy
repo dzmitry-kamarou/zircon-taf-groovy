@@ -36,12 +36,12 @@ class LoginTest {
     @Tag('regression')
     void registeredUserCantLoginWithWrongPassword() {
         def account = AccountFactory.registeredUser()
-        account.setPassword('wrong')
-        new WelcomePageFlow().login().login(account)
+        account.setPassword 'wrong'
+        new WelcomePageFlow().login().login account
         def text = Browser.getAlertText()
         Browser.acceptAlert()
         def reason = 'Registered account has not logged in with wrong password'
-        assertThat(reason, text, is('Wrong password'))
+        assertThat reason, text, is('Wrong password')
     }
 
     @Test
@@ -50,11 +50,22 @@ class LoginTest {
     @Tag('regression')
     void unregisteredUserCantLogin() {
         def account = AccountFactory.randomAccount()
-        new WelcomePageFlow().login().login(account)
+        new WelcomePageFlow().login().login account
         def text = Browser.getAlertText()
         Browser.acceptAlert()
         def reason = 'Unregistered account has not logged in'
-        assertThat(reason, text, is('The user was not found'))
+        assertThat reason, text, is('The user was not found')
+    }
+
+    @Test
+    @Tag('C4')
+    @Tag('smoke')
+    @Tag('regression')
+    void loggedInUserCanLogout() {
+        def account = AccountFactory.registeredUser()
+        new WelcomePageFlow().login().login(account).exit()
+        def reason = 'Logged in account has logged out'
+        assertThat reason, new WelcomePageFlow().loginButtonVisible(), is(true)
     }
 
     @AfterEach

@@ -11,6 +11,11 @@ class DashboardPageFlow {
     }
 
     boolean exitButtonVisible() {
-        return dashboardPage.isExitButtonVisible()
+        dashboardPage.isExitButtonVisible()
+    }
+
+    WelcomePageFlow exit() {
+        dashboardPage.clickExitButton()
+        new WelcomePageFlow()
     }
 }
