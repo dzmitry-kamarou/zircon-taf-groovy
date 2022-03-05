@@ -12,19 +12,25 @@ class AccountFactory {
     }
 
     static Account registeredUser() {
-        def account = new Account()
-        account.id = Long.valueOf CONFIG.registeredUserId()
-        account.email = CONFIG.registeredUserEmail()
-        account.password = CONFIG.registeredUserPassword()
-        account.role = Role.USER
-        account
+        new Account(
+                id: Long.valueOf(CONFIG.registeredUserId()),
+                email: CONFIG.registeredUserEmail(),
+                password: CONFIG.registeredUserPassword(),
+                role: Role.USER
+        )
     }
 
     static Account randomAccount() {
-        def account = new Account()
         def faker = new Faker()
-        account.email = faker.internet().emailAddress()
-        account.password = faker.internet().password()
-        account
+        new Account(email: faker.internet().emailAddress(), password: faker.internet().password())
+    }
+
+    static Account registeredAdmin() {
+        new Account(
+                id: Long.parseLong(CONFIG.registeredAdminId()),
+                email: CONFIG.registeredAdminEmail(),
+                password: CONFIG.registeredAdminPassword(),
+                role: Role.USER
+        )
     }
 }

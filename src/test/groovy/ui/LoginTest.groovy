@@ -68,6 +68,17 @@ class LoginTest {
         assertThat reason, new WelcomePageFlow().loginButtonVisible(), is(true)
     }
 
+    @Test
+    @Tag('C5')
+    @Tag('smoke')
+    @Tag('regression')
+    void loggedInAdminSeeAdminPanelButton() {
+        def account = AccountFactory.registeredAdmin()
+        def dashboardPageFlow = new WelcomePageFlow().login().login account
+        def reason = 'Logged in admin saw \'Admin Panel\' button'
+        assertThat reason, dashboardPageFlow.adminPanelButtonVisible(), is(true)
+    }
+
     @AfterEach
     void tearDown() {
         Browser.down()
