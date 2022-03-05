@@ -5,6 +5,8 @@ import groovy.util.logging.Slf4j
 import org.openqa.selenium.chrome.ChromeDriver
 import org.openqa.selenium.chrome.ChromeOptions
 import org.openqa.selenium.firefox.FirefoxDriver
+import org.openqa.selenium.support.ui.ExpectedConditions
+import org.openqa.selenium.support.ui.WebDriverWait
 
 import java.util.concurrent.TimeUnit
 import org.openqa.selenium.WebDriver
@@ -25,6 +27,16 @@ class Browser {
         getDriver().close()
         getDriver().quit()
         driver = null
+    }
+
+    static void acceptAlert() {
+        getDriver().switchTo().alert().accept()
+    }
+
+    static String getAlertText() {
+        def wait = new WebDriverWait(driver, IMPLICIT_WAIT_TIMEOUT)
+        def alert = wait.until ExpectedConditions.alertIsPresent()
+        return alert.getText()
     }
 
     static boolean isDriverNull() {
