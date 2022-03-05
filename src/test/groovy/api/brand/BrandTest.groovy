@@ -33,4 +33,23 @@ class BrandTest {
             brandFlow.deleteBrand brandFlow.findBrand(brand)
         }
     }
+
+    @Test
+    @Tag('C9')
+    @Tag('smoke')
+    @Tag('regression')
+    void brandCanBeAdded() {
+        def brand = BrandFactory.randomBrand()
+        BrandFlow brandFlow = new BrandFlow()
+        try {
+            brandFlow.createBrand brand
+            def expected = brandFlow.findBrand brand
+            def reason = "Brand '${brand.name}' was added"
+            assertThat(reason, expected, allOf(
+                    Matchers.hasProperty('id', is(brand.id)),
+                    Matchers.hasProperty('name', is(brand.name))))
+        } finally {
+            brandFlow.deleteBrand brand
+        }
+    }
 }
