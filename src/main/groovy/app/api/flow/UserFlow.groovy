@@ -2,7 +2,6 @@ package app.api.flow
 
 import app.api.service.UserApiService
 import business.account.Account
-import io.restassured.path.json.JsonPath
 
 class UserFlow {
 
@@ -10,27 +9,43 @@ class UserFlow {
 
     String loginAccount(Account account) {
         def jsonPath = userApiService
-                .postLogin(account.getEmail(), account.getPassword())
+                .postLogin(account.email, account.password)
                 .jsonPath()
-        def token = jsonPath.getString('token')
+        def token = jsonPath.getString 'token'
         if (token != null) {
             account.token = token
-            return token
+            token
         } else {
-            return jsonPath.getString('message')
+            jsonPath.getString 'message'
         }
     }
 
     String authAccount(Account account) {
-        JsonPath jsonPath = userApiService
-                .getAuth(account.getToken())
+        def jsonPath = userApiService
+                .getAuth(account.token)
                 .jsonPath()
-        String token = jsonPath.getString 'token'
+        def token = jsonPath.getString 'token'
         if (token != null) {
-            account.setToken(token)
-            return token
+            account.token = token
+            token
         } else {
-            return jsonPath.getString('message')
+            jsonPath.getString 'message'
+        }
+    }
+
+    void deleteAccount(Account account) {
+        userApiService.delete account.id
+    }
+
+    Account findAccount(Account account) {
+        try {
+            userApiService
+                    .getFind(account.email)
+                    .body()
+                    .as Account.class
+        } catch (Exception e) {
+            e.printStackTrace()
+            null
         }
     }
 }
