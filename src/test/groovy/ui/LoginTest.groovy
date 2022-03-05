@@ -79,6 +79,17 @@ class LoginTest {
         assertThat reason, dashboardPageFlow.adminPanelButtonVisible(), is(true)
     }
 
+    @Test
+    @Tag('C6')
+    @Tag('smoke')
+    @Tag('regression')
+    void loggedInUserDoesNotSeeAdminPanelButton() {
+        def account = AccountFactory.registeredUser()
+        def dashboardPageFlow = new WelcomePageFlow().login().login account
+        def reason = 'Logged in user does not saw \'Admin Panel\' button'
+        assertThat reason, dashboardPageFlow.adminPanelButtonVisible(), is(false)
+    }
+
     @AfterEach
     void tearDown() {
         Browser.down()
