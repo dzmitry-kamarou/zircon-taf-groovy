@@ -1,6 +1,7 @@
 package api.brand
 
 import app.api.flow.BrandFlow
+import app.api.service.BrandApiService
 import business.brand.Brand
 import business.brand.BrandFactory
 import org.hamcrest.Matchers
@@ -48,6 +49,26 @@ class BrandTest {
             assertThat(reason, expected, allOf(
                     Matchers.hasProperty('id', is(brand.id)),
                     Matchers.hasProperty('name', is(brand.name))))
+        } finally {
+            brandFlow.deleteBrand brand
+        }
+    }
+
+    @Test
+    @Tag('C10')
+    @Tag('smoke')
+    @Tag('regression')
+    void theSameBrandCantBeAddedTwice() {
+        def brand = BrandFactory.randomBrand()
+        def brandFlow = new BrandFlow()
+        try {
+            brandFlow.createBrand brand
+            def message = new BrandApiService()
+                    .postCreate(brand.name)
+                    .jsonPath()
+                    .getString 'message'
+            def reason = 'Brand with the same name can\'t be added'
+            assertThat reason, message, is('There is already brand with the same name')
         } finally {
             brandFlow.deleteBrand brand
         }
