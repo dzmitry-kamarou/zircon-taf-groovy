@@ -12,9 +12,11 @@ import static org.hamcrest.MatcherAssert.assertThat
 
 class AuthTest {
 
+    @Test
+    @Tag('C11')
     @Tag('api')
     @Tag('regression')
-    @Test
+    @Tag('smoke')
     void loggedInUserRetrievesToken() {
         def account = AccountFactory.registeredUser()
         def userFlow = new UserFlow()
@@ -25,9 +27,11 @@ class AuthTest {
         assertThat reason, token, matchesPattern(jwtPattern)
     }
 
+    @Test
+    @Tag('C12')
     @Tag('api')
     @Tag('regression')
-    @Test
+    @Tag('smoke')
     void notLoggedInUserNotRetrievesToken() {
         def account = AccountFactory.registeredUser()
         def message = new UserFlow().authAccount account
