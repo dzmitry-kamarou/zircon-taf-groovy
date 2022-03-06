@@ -74,4 +74,11 @@ class UserFlow {
                 .jsonPath()
                 .getList('users', Account.class)
     }
+
+    Account getAccount(Account account) {
+        userApiService
+                .get(account.getId())
+                .body()
+                .as(Account.class)
+    }
 }

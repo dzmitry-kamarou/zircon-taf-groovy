@@ -63,4 +63,13 @@ class UserApiService extends BaseApiService {
                 .when()
                 .get('/all')
     }
+
+    Response get(long id) {
+        log.info 'GET ACCOUNT BY ID'
+        zirconSpecification()
+                .basePath(USER_ENDPOINT)
+                .pathParam('id', id)
+                .when()
+                .get('/{id}')
+    }
 }

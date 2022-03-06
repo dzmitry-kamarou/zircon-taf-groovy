@@ -27,4 +27,18 @@ class UserTest {
                 Matchers.<Account> hasProperty('id', is(account.id))
         ))
     }
+
+    @Test
+    @Tag('C21')
+    @Tag('api')
+    @Tag('regression')
+    void accountCanBeRetrieved() {
+        def expected = AccountFactory.registeredUser()
+        def actual = new UserFlow().getAccount expected
+        def reason = "Exists '${expected.email}' account retrieved"
+        assertThat reason, actual, allOf(
+                Matchers.hasProperty('email', is(expected.email)),
+                Matchers.hasProperty('id', is(expected.id))
+        )
+    }
 }
