@@ -2,9 +2,12 @@ package app.api.flow
 
 import app.api.service.UserApiService
 import business.account.Account
+import org.json.JSONObject
 
 class UserFlow {
 
+    private static final String TOKEN_NODE = 'token'
+    private static final String MESSAGE_NODE = 'message'
     private final def userApiService = new UserApiService();
 
     String loginAccount(Account account) {
@@ -46,6 +49,22 @@ class UserFlow {
         } catch (Exception e) {
             e.printStackTrace()
             null
+        }
+    }
+
+    String registerAccount(Account account) {
+        def jsonPath = userApiService
+                .postRegister(account.email, account.password)
+                .jsonPath()
+        def token = jsonPath.getString TOKEN_NODE
+        if (token != null) {
+            account.id = new JSONObject(new String(Base64
+                    .getDecoder()
+                    .decode(token.split('\\.')[1])))
+                    .getLong('id')
+            token
+        } else {
+            jsonPath.getString MESSAGE_NODE
         }
     }
 }

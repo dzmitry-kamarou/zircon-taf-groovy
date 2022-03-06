@@ -46,4 +46,13 @@ class UserApiService extends BaseApiService {
                 .when()
                 .get('/find')
     }
+
+    Response postRegister(String email, String password) {
+        log.info 'POST REGISTER ACCOUNT'
+        zirconSpecification()
+                .basePath(USER_ENDPOINT)
+                .body(['email': email, 'password': password])
+                .when()
+                .post('/registration')
+    }
 }
