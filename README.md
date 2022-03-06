@@ -22,7 +22,7 @@ This is test automation framework for app called **zircon** written in Groovy an
 2. Run this in command line to launch tests e.g.:
 
 ```shell
-gradle test regression -Penv=dev -Dbrowser=chrome
+gradle test regression -Penv=dev -Pbrowser=chrome
 ```
 
 - env - zircon application environment (e.g.: local, dev, qa, uat, stg, prod)
