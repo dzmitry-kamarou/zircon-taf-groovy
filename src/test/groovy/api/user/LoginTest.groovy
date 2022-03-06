@@ -6,6 +6,7 @@ import org.junit.jupiter.api.Tag
 import org.junit.jupiter.api.Test
 
 import static org.hamcrest.MatcherAssert.assertThat
+import static org.hamcrest.Matchers.is
 import static org.hamcrest.text.MatchesPattern.matchesPattern
 
 class LoginTest {
@@ -21,5 +22,17 @@ class LoginTest {
         def token = new UserFlow().loginAccount account
         def jwtPattern = '[A-Za-z0-9-_=]+\\.[A-Za-z0-9-_=]+\\.?[A-Za-z0-9-_.+/=]*'
         assertThat reason, token, matchesPattern(jwtPattern)
+    }
+
+    @Test
+    @Tag('C16')
+    @Tag('api')
+    @Tag('regression')
+    @Tag('smoke')
+    void unregisteredUserCantLogin() {
+        def account = AccountFactory.randomAccount()
+        def reason = "Unregistered '${account.email}' account can't get token"
+        def message = new UserFlow().loginAccount account
+        assertThat reason, message, is('The user was not found')
     }
 }
