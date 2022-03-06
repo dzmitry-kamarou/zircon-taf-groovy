@@ -2,6 +2,7 @@ package api.user
 
 import app.api.flow.UserFlow
 import business.account.Account
+import business.account.AccountBuilder
 import business.account.AccountFactory
 import org.junit.jupiter.api.Tag
 import org.junit.jupiter.api.Test
@@ -37,6 +38,6 @@ class RegisterTest {
     }
 
     private static List<Account> wrongAccountDataProvider() {
-        [new Account(email: ''), new Account(password: '')]
+        [new AccountBuilder().setEmail('').build(), new AccountBuilder().setPassword('').build()]
     }
 }
