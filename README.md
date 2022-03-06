@@ -2,7 +2,7 @@
 
 ### Description
 
-This is test automation framework for app called **zircon**. It tests both UI and API.
+This is test automation framework for app called **zircon** written in Groovy and using Gradle, Junit 5, Selenium, REST Assured. It tests both UI and API.
 
 - Zircon UI you can find here: [dev](https://zircon-front-dev.herokuapp.com)
   , [qa](https://zircon-front-qa.herokuapp.com), [uat](https://zircon-front-uat.herokuapp.com)

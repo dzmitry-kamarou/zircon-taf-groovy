@@ -1,16 +1,14 @@
-package business.account
+package business.brand
 
-import business.role.Role
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize
 import util.TimeUtil
+
 import java.time.LocalDateTime
 
-class Account {
+class Brand {
+
     long id
-    String email
-    String password
-    Role role
-    String token
+    String name
     @JsonDeserialize(using = TimeUtil.class)
     LocalDateTime createdAt
     @JsonDeserialize(using = TimeUtil.class)

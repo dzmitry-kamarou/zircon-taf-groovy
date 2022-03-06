@@ -12,6 +12,10 @@ class WelcomePageFlow {
 
     LoginPageFlow login() {
         welcomePage.clickLoginButton()
-        return new LoginPageFlow()
+        new LoginPageFlow()
+    }
+
+    boolean loginButtonVisible() {
+        welcomePage.isLoginButtonVisible()
     }
 }

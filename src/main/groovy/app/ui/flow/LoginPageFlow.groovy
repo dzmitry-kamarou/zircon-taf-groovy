@@ -15,6 +15,17 @@ class LoginPageFlow {
         loginPage.fillEmailField account.getEmail()
         loginPage.fillPasswordField account.getPassword()
         loginPage.clickLoginButton()
-        return new DashboardPageFlow()
+        new DashboardPageFlow()
+    }
+
+    LoginPageFlow registration() {
+        loginPage.clickRegistrationLink()
+        this
+    }
+
+    void register(Account account) {
+        loginPage.fillEmailField account.getEmail()
+        loginPage.fillPasswordField account.getPassword()
+        loginPage.clickRegisterButton()
     }
 }
