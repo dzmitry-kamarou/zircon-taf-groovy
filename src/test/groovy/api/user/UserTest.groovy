@@ -11,6 +11,7 @@ import static org.hamcrest.MatcherAssert.assertThat
 import static org.hamcrest.Matchers.allOf
 import static org.hamcrest.Matchers.hasItem
 import static org.hamcrest.Matchers.is
+import static org.hamcrest.Matchers.nullValue
 
 class UserTest {
 
@@ -40,5 +41,19 @@ class UserTest {
                 Matchers.hasProperty('email', is(expected.email)),
                 Matchers.hasProperty('id', is(expected.id))
         )
+    }
+
+    @Test
+    @Tag('C22')
+    @Tag('api')
+    @Tag('regression')
+    void accountCanBeRemoved() {
+        def account = AccountFactory.randomAccount()
+        def userFlow = new UserFlow()
+        userFlow.registerAccount account
+        userFlow.deleteAccount account
+        def actual = userFlow.getAccount account
+        def reason = "Created '${account.email}' account removed"
+        assertThat reason, actual, is(nullValue())
     }
 }
