@@ -55,4 +55,12 @@ class UserApiService extends BaseApiService {
                 .when()
                 .post('/registration')
     }
+
+    Response getAll() {
+        log.info 'GET ALL ACCOUNTS'
+        zirconSpecification()
+                .basePath(USER_ENDPOINT)
+                .when()
+                .get('/all')
+    }
 }

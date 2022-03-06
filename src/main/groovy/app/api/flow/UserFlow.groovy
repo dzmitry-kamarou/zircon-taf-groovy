@@ -8,7 +8,7 @@ class UserFlow {
 
     private static final String TOKEN_NODE = 'token'
     private static final String MESSAGE_NODE = 'message'
-    private final def userApiService = new UserApiService();
+    private final def userApiService = new UserApiService()
 
     String loginAccount(Account account) {
         def jsonPath = userApiService
@@ -66,5 +66,12 @@ class UserFlow {
         } else {
             jsonPath.getString MESSAGE_NODE
         }
+    }
+
+    List<Account> getAccounts() {
+        userApiService
+                .getAll()
+                .jsonPath()
+                .getList('users', Account.class)
     }
 }
