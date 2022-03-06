@@ -35,4 +35,17 @@ class LoginTest {
         def message = new UserFlow().loginAccount account
         assertThat reason, message, is('The user was not found')
     }
+
+    @Test
+    @Tag('C17')
+    @Tag('api')
+    @Tag('regression')
+    @Tag('smoke')
+    void registeredUserWithWrongPasswordCantLogin() {
+        def account = AccountFactory.registeredUser()
+        account.password = 'wrong'
+        def reason = "Registered '${account.email}' account with wrong password can't get token"
+        def message = new UserFlow().loginAccount account
+        assertThat reason, message, is('Wrong password')
+    }
 }
