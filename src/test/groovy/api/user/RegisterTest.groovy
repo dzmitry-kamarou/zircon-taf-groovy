@@ -5,7 +5,6 @@ import business.account.Account
 import org.junit.jupiter.api.Tag
 import org.junit.jupiter.params.ParameterizedTest
 import org.junit.jupiter.params.provider.MethodSource
-import java.util.stream.Stream
 
 import static org.hamcrest.MatcherAssert.assertThat
 import static org.hamcrest.Matchers.is
@@ -23,7 +22,7 @@ class RegisterTest {
         assertThat reason, message, is('Incorrect email or password')
     }
 
-    private static Stream<Account> wrongAccountDataProvider() {
-        Stream.of(new Account(email: ''), new Account(password: ''))
+    private static List<Account> wrongAccountDataProvider() {
+        [new Account(email: ''), new Account(password: '')]
     }
 }
